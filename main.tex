@@ -79,8 +79,67 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{Frame Title}
-  % content
+
+% ── two-sample test intro slide ──────────────────────────────────────────────────────────
+
+\begin{frame}{Two-Sample Testing}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \onslide<3->{
+      \textit{(unknown)} $P, Q \in \mathcal{P}(\R)$
+      \[
+        \textit{(Observed)}\quad X_1, \ldots, X_n \simiid P, \quad Y_1, \ldots, Y_n \simiid Q.
+      \]
+      Test $H_0 : P = Q$ vs $H_1 : P \neq Q$.
+      }
+
+      \onslide<4->{
+      \vspace{5em}
+      \textbf{Example: }Kolmogorov--Smirnov Test
+        \[
+          T_n = \sup_{x \in \R}\,\bigl|\hat{F}_n(x) - \hat{G}_n(x)\bigr|
+        \]
+      
+      }
+    \end{column}
+    \begin{column}{0.50\textwidth}
+      \onslide<1->{
+      \hspace{1.5em}
+      \begin{tikzpicture}
+        \begin{axis}[
+          width=\columnwidth, height=5.2cm,
+          axis lines=left,
+          xtick=\empty, ytick=\empty,
+          ymin=-0.07, xmin=-3.8, xmax=5.8,
+          clip=false,
+        ]
+          \addplot[thick, blue!70!black, domain=-3.5:3.5, samples=100]
+            {exp(-x^2/2)/sqrt(2*pi)};
+          \addplot[thick, orange!80!red, domain=-1.5:5.5, samples=100]
+            {exp(-(x-2)^2/2)/sqrt(2*pi)};
+          \node[blue!70!black, font=\small] at (axis cs:-0.2, 0.44) {$P$};
+          \node[orange!80!red, font=\small] at (axis cs: 2.2, 0.44) {$Q$};
+          % rug: samples from P — sit below x-axis
+          \addplot[only marks, mark=|, mark size=4pt, line width=0.8pt,
+                   blue!70!black] coordinates {
+            (-1.1,-0.04)(-0.4,-0.04)(0.3,-0.04)(0.8,-0.04)
+            (1.3,-0.04)(-0.7,-0.04)(1.8,-0.04)(0.1,-0.04)};
+          % rug: samples from Q — sit below x-axis
+          \addplot[only marks, mark=|, mark size=4pt, line width=0.8pt,
+                   orange!80!red] coordinates {
+            (0.6,-0.04)(1.5,-0.04)(2.2,-0.04)(1.0,-0.04)
+            (2.8,-0.04)(1.7,-0.04)(3.1,-0.04)(2.4,-0.04)};
+        \end{axis}
+      \end{tikzpicture}
+      }
+
+      \onslide<2->{
+      \begin{center}
+        \textit{Do they come from the same law?}
+      \end{center}
+      }
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}{References}
