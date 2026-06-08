@@ -1,0 +1,70 @@
+%% commands.tex
+%% Custom macros and theorem environments for the BNP thesis.
+
+% Draft annotation: \MC{note} renders as coloured inline text
+\newcommand{\MC}[1]{\textcolor{red}{\textbf{[MC: #1]}}}
+
+% ============================================================
+%  THEOREM ENVIRONMENTS
+%  Numbered per section (chapter.section.number).
+% ============================================================
+% Beamer already defines: theorem, corollary, definition, example, lemma
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{remark}{Remark}
+\newtheorem{ttheorem}{Tentative Theorem}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{cor}{Corollary}
+
+% ============================================================
+%  Bayesian Nonparametric Toolbox
+% ============================================================
+
+% For spaces
+\newcommand{\X}{\mathbb{X}}
+\newcommand{\Y}{\mathbb{Y}}
+\newcommand{\probx}{\mathcal{P}(\mathbb{X})}
+\newcommand{\probxtwo}{\mathcal{P}_2(\mathbb{X})}
+\newcommand{\probspace}{\left( \Omega, \mathscr{F}, \mathbb{P} \right)}
+\newcommand{\probprobx}{\mathcal{P}(\mathcal{P}(\X))}
+
+\newcommand{\lipR}{\mathrm{Lip}_1(\R,\R)}
+\newcommand{\lipX}{\mathrm{Lip}_1(\X,\R)}
+\newcommand{\lipK}{\mathrm{Lip}_1([-K,K],\R)}
+\newcommand{\lipXstar}{\mathrm{Lip}_1^*(\X,\R)}
+\newcommand{\lipKzero}{\mathrm{Lip}_1^0([-K,K],\R)}
+\newcommand{\dstar}{\D^*}
+\newcommand{\ellstar}{\ell^\infty(\dstar)}
+
+
+
+\newcommand{\dlip}{d_{\mathrm{Lip}}}
+\newcommand{\WW}{\mathcal{W}_{\mathcal{W}}}
+
+
+
+
+
+
+
+
+% ============================================================
+% Some basic notations
+% ============================================================
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\N}{\mathcal{N}}          % Poisson random measure / calligraphic N
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\W}{\mathcal{W}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\law}{\mathcal{L}}
+\newcommand{\var}{\mathrm{Var}}
+\newcommand{\cov}{\mathrm{Cov}}
+\newcommand{\iid}{\mathrm{i.i.d}}
