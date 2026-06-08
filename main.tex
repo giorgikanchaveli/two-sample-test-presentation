@@ -82,10 +82,10 @@
 
 % ── two-sample test intro slide ──────────────────────────────────────────────────────────
 
-\begin{frame}{Two-Sample Testing}
+\begin{frame}{Two-Sample Testing in $\R$}
   \begin{columns}[T]
     \begin{column}{0.48\textwidth}
-      \onslide<3->{
+      \onslide<4->{
       \textit{(unknown)} $P, Q \in \mathcal{P}(\R)$
       \[
         \textit{(Observed)}\quad X_1, \ldots, X_n \simiid P, \quad Y_1, \ldots, Y_n \simiid Q.
@@ -93,8 +93,8 @@
       Test $H_0 : P = Q$ vs $H_1 : P \neq Q$.
       }
 
-      \onslide<4->{
-      \vspace{5em}
+      \onslide<5->{
+      \vspace{4em}
       \textbf{Example: }Kolmogorov--Smirnov Test
         \[
           T_n = \sup_{x \in \R}\,\bigl|\hat{F}_n(x) - \hat{G}_n(x)\bigr|
@@ -107,10 +107,10 @@
       \hspace{1.5em}
       \begin{tikzpicture}
         \begin{axis}[
-          width=\columnwidth, height=5.2cm,
+          width=\columnwidth, height=5.0cm,
           axis lines=left,
           xtick=\empty, ytick=\empty,
-          ymin=-0.07, xmin=-3.8, xmax=5.8,
+          ymin=-0.03, xmin=-3.8, xmax=5.8,
           clip=false,
         ]
           \addplot[thick, blue!70!black, domain=-3.5:3.5, samples=100]
@@ -119,27 +119,129 @@
             {exp(-(x-2)^2/2)/sqrt(2*pi)};
           \node[blue!70!black, font=\small] at (axis cs:-0.2, 0.44) {$P$};
           \node[orange!80!red, font=\small] at (axis cs: 2.2, 0.44) {$Q$};
-          % rug: samples from P — sit below x-axis
-          \addplot[only marks, mark=|, mark size=4pt, line width=0.8pt,
+          % rug: samples — overlay 2
+          \only<2->{
+          \addplot[only marks, mark=*, mark size=2pt,
                    blue!70!black] coordinates {
-            (-1.1,-0.04)(-0.4,-0.04)(0.3,-0.04)(0.8,-0.04)
-            (1.3,-0.04)(-0.7,-0.04)(1.8,-0.04)(0.1,-0.04)};
-          % rug: samples from Q — sit below x-axis
-          \addplot[only marks, mark=|, mark size=4pt, line width=0.8pt,
+            (-1.1,0)(-0.4,0)(0.3,0)(0.8,0)
+            (1.3,0)(-0.7,0)(1.8,0)(0.1,0)};
+          \addplot[only marks, mark=triangle*, mark size=2.5pt,
                    orange!80!red] coordinates {
-            (0.6,-0.04)(1.5,-0.04)(2.2,-0.04)(1.0,-0.04)
-            (2.8,-0.04)(1.7,-0.04)(3.1,-0.04)(2.4,-0.04)};
+            (0.6,0)(1.5,0)(2.2,0)(1.0,0)
+            (2.8,0)(1.7,0)(3.1,0)(2.4,0)};
+
+          }
         \end{axis}
       \end{tikzpicture}
       }
 
-      \onslide<2->{
+      \onslide<3->{
       \begin{center}
         \textit{Do they come from the same law?}
       \end{center}
       }
     \end{column}
   \end{columns}
+
+  \onslide<6->{
+  \textit{\textbf{Focus}: \textcolor{blue}{distance-based tests} — reject $H_0$ when samples are \textcolor{red}{far apart}.}
+  }
+
+  \onslide<7->{
+  \[
+    d\!\left(\frac{1}{n}\sum_{i=1}^{n}\delta_{X_i},\;\frac{1}{n}\sum_{i=1}^{n}\delta_{Y_i}\right) \textcolor{red}{\text{ is large}}
+  \]
+  }
+
+\end{frame}
+
+% ── Generalizations of two-sample test slide ─────────────────────────────────────────────────────
+\begin{frame}{Two-Sample Testing in $\R^d$}
+
+  \textbf{Works in $\R^d$:}
+  \begin{itemize}
+    \setlength\itemsep{0.5em}
+    \item \textcite{gretton2012kernel} — maximum mean discrepancy
+    \item \textcite{wang2021two} — kernel projected Wasserstein
+    \item \textcite{hu2025two} — max-sliced Wasserstein
+    \item[] $\vdots$
+  \end{itemize}
+
+  \onslide<2->{
+  \vfill
+  \begin{alertblock}{}
+    What about \textbf{beyond} $\R^d$? What if the observed samples are
+    themselves \textbf{probability measures}?
+  \end{alertblock}
+  }
+
+\end{frame}
+
+% ── Samples as probability measures slide ────────────────────────────────────
+\begin{frame}{Two-sample testing in $\probprobx$}
+  \begin{center}
+  \begin{tikzpicture}
+    \begin{axis}[
+      width=0.92\textwidth, height=5.2cm,
+      axis lines=left,
+      xtick=\empty, ytick=\empty,
+      ymin=-0.12, ymax=0.78,
+      xmin=-3.5, xmax=8.5,
+      clip=false,
+    ]
+      % ── Q^1: 3 blue Gaussians ────────────────────────────────────────────
+      \addplot[thick, blue!80!black, domain=-3.5:3.2, samples=80]
+        {1/(0.8*sqrt(2*pi))*exp(-(x+0.8)^2/(2*0.64))};
+      \addplot[thick, blue!50!black, domain=-3.5:3.2, samples=80]
+        {1/(1.0*sqrt(2*pi))*exp(-(x-0.7)^2/(2*1.0))};
+      \addplot[thick, cyan!70!blue,   domain=-3.5:3.2, samples=80]
+        {1/(0.7*sqrt(2*pi))*exp(-x^2/(2*0.49))};
+      % Q^1 label
+      \node[blue!80!black, font=\bfseries\small] at (axis cs:-1.0, 0.74) {$Q_1$};
+
+      % ── Q^2: 3 orange Gaussians ───────────────────────────────────────────
+      \addplot[thick, orange!80!red,   domain=2.0:8.5, samples=80]
+        {1/(0.8*sqrt(2*pi))*exp(-(x-4.2)^2/(2*0.64))};
+      \addplot[thick, orange!50!red,   domain=2.0:8.5, samples=80]
+        {1/(1.0*sqrt(2*pi))*exp(-(x-5.7)^2/(2*1.0))};
+      \addplot[thick, orange!70!black, domain=2.0:8.5, samples=80]
+        {1/(0.7*sqrt(2*pi))*exp(-(x-5.0)^2/(2*0.49))};
+      % Q^2 label
+      \node[orange!80!red, font=\bfseries\small] at (axis cs:6.8, 0.74) {$Q_2$};
+
+      % "latent" annotation — overlay 2
+      \only<2->{
+      \node[gray, font=\small\itshape] (latnode) at (axis cs:2.5, 0.38) {latent};
+      \draw[->, gray, thin] (latnode.west) -- (axis cs:1.0, 0.24);
+      \draw[->, gray, thin] (latnode.east) -- (axis cs:4.0, 0.24);
+      }
+
+      % ── Observed samples on x-axis — overlay 3 ───────────────────────────
+      \only<3->{
+      % Q^1 samples: circle / triangle / square, all blue
+      \addplot[only marks, mark=*, mark size=2pt, blue!80!black] coordinates {
+        (-1.1,0.01)(-0.8,0.01)(-0.6,0.01)(-0.5,0.01)(-0.4,0.01)};
+      \addplot[only marks, mark=triangle*, mark size=2.5pt, blue!80!black] coordinates {
+        (0.4,0.01)(0.6,0.01)(0.7,0.01)(0.9,0.01)(1.1,0.01)};
+      \addplot[only marks, mark=square*, mark size=2pt, blue!80!black] coordinates {
+        (-0.3,0.01)(-0.2,0.01)(0.0,0.01)(0.2,0.01)(0.3,0.01)};
+      % Q^2 samples: diamond / pentagon / star, all orange
+      \addplot[only marks, mark=diamond*, mark size=2.5pt, orange!80!red] coordinates {
+        (4.1,0.01)(4.3,0.01)(4.4,0.01)(4.6,0.01)(4.7,0.01)};
+      \addplot[only marks, mark=pentagon*, mark size=2.5pt, orange!80!red] coordinates {
+        (5.4,0.01)(5.6,0.01)(5.7,0.01)(5.8,0.01)(6.0,0.01)};
+      \addplot[only marks, mark=Mercedes star*, mark size=2.5pt, orange!80!red] coordinates {
+        (4.8,0.01)(4.9,0.01)(5.0,0.01)(5.2,0.01)(5.3,0.01)};
+      }
+    \end{axis}
+  \end{tikzpicture}
+  \end{center}
+  \vspace{0.3em}
+  \onslide<4->{
+  \begin{center}
+    \small\textit{Examples: income distributions, mortality proportions, temperature studies, \ldots}
+  \end{center}
+  }
 \end{frame}
 
 \begin{frame}{References}
