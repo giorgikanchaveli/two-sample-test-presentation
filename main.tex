@@ -144,7 +144,7 @@
   \end{columns}
 
   \onslide<6->{
-  \textit{\textbf{Focus}: \textcolor{blue}{distance-based tests} — reject $H_0$ when samples are \textcolor{red}{far apart}.}
+  \textit{\textbf{Focus}: \textcolor{blue}{distance-based tests} — reject $H_0$ if samples are \textcolor{red}{far apart}.}
   }
 
   \onslide<7->{
@@ -242,6 +242,171 @@
     \small\textit{Examples: income distributions, mortality proportions, temperature studies, \ldots}
   \end{center}
   }
+  \onslide<5->{
+  \vspace{0.4em}
+  \begin{center}
+    $\rightarrow$ Need to work at the level of \textbf{Random Probability Measures}
+  \end{center}
+  }
+\end{frame}
+
+% ── Hierarchical sample introduction slide ─────────────────────────────────────────────────────────────
+\begin{frame}{Hierarchical sample}
+  \begin{columns}[T]
+    % ── Left: mathematical description ───────────────────────────────────────
+    \begin{column}{0.50\textwidth}
+      \onslide<1->{
+        \textit{(unknown)}\; $Q \in \probprobx$\\[0.8em]
+        \textit{(latent)}\; $\widetilde{P}_1, \ldots, \widetilde{P}_n \simiid Q$
+      }
+      
+      \onslide<2->{
+        \vspace{2.5em}
+        \textbf{Hierarchical Sample:}
+        \[
+          \mathbf{X}_{n,m}:=\begin{pmatrix}
+          X_{1,1} & X_{1,2} & \cdots & X_{1,m} \mid \widetilde{P}_1 \simiid \widetilde{P}_1 \\
+          X_{2,1} & X_{2,2} & \cdots & X_{2,m} \mid \widetilde{P}_2 \simiid \widetilde{P}_2 \\
+          \vdots & \vdots & \ddots & \vdots \\
+          X_{n,1} & X_{n,2} & \cdots & X_{n,m} \mid \widetilde{P}_n \simiid \widetilde{P}_n
+          \end{pmatrix}
+        \]
+        \onslide<3->{
+          \vskip 1em
+          \textcolor{blue}{Notation:} $\mathbf{X}_{n,m}\sim Q$
+      }
+      }
+    \end{column}
+    % ── Right: figure (same style as slide 4, single Q) ─────────────────────
+    \begin{column}{0.47\textwidth}
+      \begin{tikzpicture}
+        \begin{axis}[
+          width=\columnwidth, height=5.2cm,
+          axis lines=left,
+          xtick=\empty, ytick=\empty,
+          ymin=-0.12, ymax=0.78,
+          xmin=-3.5, xmax=3.5,
+          clip=false,
+        ]
+          \node[blue!80!black, font=\bfseries\small] at (axis cs:2.5, 0.74) {$Q$};
+          \addplot[thick, blue!80!black, domain=-3.5:3.2, samples=80]
+            {1/(0.8*sqrt(2*pi))*exp(-(x+0.8)^2/(2*0.64))};
+          \addplot[thick, blue!50!black, domain=-3.5:3.2, samples=80]
+            {1/(1.0*sqrt(2*pi))*exp(-(x-0.7)^2/(2*1.0))};
+          \addplot[thick, cyan!70!blue,  domain=-3.5:3.2, samples=80]
+            {1/(0.7*sqrt(2*pi))*exp(-x^2/(2*0.49))};
+          % Observations — always visible
+          \addplot[only marks, mark=*, mark size=2pt, blue!80!black] coordinates {
+            (-1.1,0.01)(-0.8,0.01)(-0.6,0.01)(-0.5,0.01)(-0.4,0.01)};
+          \addplot[only marks, mark=triangle*, mark size=2.5pt, blue!80!black] coordinates {
+            (0.4,0.01)(0.6,0.01)(0.7,0.01)(0.9,0.01)(1.1,0.01)};
+          \addplot[only marks, mark=square*, mark size=2pt, blue!80!black] coordinates {
+            (-0.3,0.01)(-0.2,0.01)(0.0,0.01)(0.2,0.01)(0.3,0.01)};
+        \end{axis}
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── Summary 1 slide ─────────────────────────────────────────────────────────────
+
+\begin{frame}{Distance-based Two Sample Test}
+  \begin{itemize}
+    \setlength\itemsep{1.2em}
+    \item \textbf{Problem.} $Q^1, Q^2 \in \probprobx$;\quad
+          test $H_0 : Q^1 = Q^2$ vs $H_1 : Q^1 \neq Q^2$.
+    \pause
+    \item \textbf{Strategy.} Given hierarchical samples $\mathbf{X}_{n,m} \sim Q^1$
+          and $\mathbf{Y}_{n,m} \sim Q^2$, reject $H_0$ if
+          $d(\mathbf{X}_{n,m},\, \mathbf{Y}_{n,m})$ is large.
+    \pause
+    \item \textbf{Ingredients.} A distance $d$ on $\probprobx$; a threshold.
+  \end{itemize}
+\end{frame}
+
+
+% ── Hierarchical sample in the literature slide ─────────────────────────────────────────────────────────────
+
+\begin{frame}{Hierarchical Samples in the Literature}
+  \begin{itemize}
+    \setlength\itemsep{0.9em}
+    \item \textcite{Baxter2000} — meta-learning, distribution over tasks
+    \item \textcite{Szabo2016} — distribution regression 
+    \item \textcite{Haviv2024} — generative modelling over distributions
+    \item \textcite{Warren2025} — principal curves in Wasserstein space
+  \end{itemize}
+\end{frame}
+
+
+
+
+% ── Hierarchical sample limitations slide ─────────────────────────────────────────────────────────────
+\begin{frame}{Limitations of the Hierarchical Sampling Framework}
+  \begin{itemize}
+    \setlength\itemsep{1.0em}
+    \item Each row of $\mathbf{X}_{n,m}$ has the law
+      \[
+        \mathbb{P}\!\big(X_{i,1}\in A_1,\ldots,X_{i,m}\in A_m\big)
+        = \int_{\probx} \prod_{j=1}^{m} P(A_j)\, Q(dP),
+        \qquad i=1,\ldots,n.
+      \]
+    \pause
+    \item $\implies (X_{i,1},\ldots,X_{i,m})$ is exchangeable.
+    \pause
+    \item \textbf{Limitation.} $Q^1 \neq Q^2$ does \emph{not} imply
+      $\mathbf{X}_{n,m} \overset{d}{\neq} \mathbf{Y}_{n,m}$.
+    \pause
+    \item \textbf{But for $m$ large:}
+      \[
+        Q^1 = Q^2
+        \;\iff\;
+        \mathbf{X}_{n,m} \overset{d}{=} \mathbf{Y}_{n,m}.
+      \]
+  \end{itemize}
+\end{frame}
+
+% ── Hierarchical Empirical Estimator slide ─────────────────────────────────────────────────────────────
+
+\begin{frame}{Hierarchical Empirical Estimator}
+  \begin{itemize}
+    \setlength\itemsep{1.1em}
+    \item $Q \in \probprobx$. \pause
+    \item Analogue of the empirical measure in i.i.d case:
+      \[
+        \frac{1}{n}\sum_{i=1}^{n} \delta_{\widetilde{P}_i}.
+      \]
+    
+    \item But $\widetilde{P}_1,\ldots,\widetilde{P}_n$ are not observed.
+    \pause
+    \item Estimate each $\widetilde{P}_i$ from its samples:
+    $\widehat{P}_{i,m} = \frac{1}{m}\sum_{j=1}^{m}\delta_{X_{i,j}}$ 
+    \pause
+    \item \textbf{Hierarchical Empirical Estimator:} 
+    \[
+        \widehat{Q}_{n,m} = \frac{1}{n}\sum_{i=1}^{n}\delta_{\widehat{P}_{i,m}}.
+    \]
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Distance based Two Sample Test}
+  \begin{itemize}
+    \setlength\itemsep{1.1em}
+    \item $Q^1, Q^2 \in \probprobx$ unknown;\quad test $H_0: Q^1 = Q^2$ vs $H_1: Q^1 \neq Q^2$.
+    \item Observe hierarchical samples
+      \[
+        \mathbf{X}_{n,m} \sim Q^1, \qquad \mathbf{Y}_{n,m} \sim Q^2.
+      \]
+    \item Build hierarchical empirical estimators:
+      \[
+        \widehat{Q}^1_{n,m} = \frac{1}{n}\sum_{i=1}^{n}\delta_{\widehat{P}^1_{i,m}}, \qquad
+        \widehat{Q}^2_{n,m} = \frac{1}{n}\sum_{i=1}^{n}\delta_{\widehat{P}^2_{i,m}}.
+      \]
+    \pause
+    \item \textbf{Reject $H_0$} if
+      \[
+        d\!\left(\widehat{Q}^1_{n,m},\, \widehat{Q}^2_{n,m}\right) \text{is large}.
+      \]
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{References}
