@@ -681,30 +681,30 @@
 
 
 % ── WoW vs HIPM slide ─────────────────────────────────────────────────────────
-\begin{frame}{WoW vs.\ HIPM: Validity and Power}
+\begin{frame}{WoW vs.\ HIPM: Type I error and Power}
   \small
-  ($n=m=n_{\mathrm{perm}}=100$, $S=1000$.)
+  $n=m=n_{\mathrm{perm}}=100$.
   \vskip 0.3em
-  \begin{columns}[T]
+  \begin{columns}[b]
     \begin{column}{0.32\textwidth}
-      \centering{\footnotesize\textbf{Type~I error}}\\[0.2em]
+      \parbox[t][2.8em][t]{\linewidth}{\centering\footnotesize\textbf{Type~I error} $\mathrm{DP}(\alpha = 1, P_0 = \mathrm{Uniform}(0,1))$}\\[0.4em]
       \includegraphics[width=\linewidth]{figures/fp_label=1_n=100_m=100_S=1000_n_perm=100.png}
     \end{column}
     \begin{column}{0.32\textwidth}
-      \centering{\footnotesize\textbf{Power: C.} DP(Unif), bounded}\\[0.2em]
-      \includegraphics[width=\linewidth]{figures/tp_label_1=3_label_2=3_n=100_m=100_S=1000_n_perm=100.png}
+      \onslide<2->{\parbox[t][2.8em][t]{\linewidth}{\centering\footnotesize\textbf{Power: A.} $\mathrm{DP}(\alpha = 1, P_0 = \mathrm{Beta}(a,b))$, varying $P_0$}\\[0.4em]
+      \includegraphics[width=\linewidth]{figures/tp_label_1=3_label_2=3_n=100_m=100_S=1000_n_perm=100.png}}
     \end{column}
     \begin{column}{0.32\textwidth}
-      \centering{\footnotesize\textbf{Power: D.} DP($\mathcal{N}$), unbounded}\\[0.2em]
-      \includegraphics[width=\linewidth]{figures/tp_label_1=4_label_2=4_n=100_m=100_S=1000_n_perm=100.png}
+      \onslide<3->{\parbox[t][2.8em][t]{\linewidth}{\centering\footnotesize\textbf{Power: B.} $\mathrm{DP}(\alpha = 1, P_0 = \N(0,1))$, \\ varying $\alpha$}\\[0.4em]
+      \includegraphics[width=\linewidth]{figures/tp_label_1=4_label_2=4_n=100_m=100_S=1000_n_perm=100.png}}
     \end{column}
   \end{columns}
   \vskip 0.4em
   \begin{itemize}
     \setlength\itemsep{0.2em}
     \item Both methods \textbf{control Type~I error}, including $\X=\R$ where theory does not guarantee it.
-    \item \textbf{C:} HIPM slightly outperforms WoW.
-    \item \textbf{D:} WoW substantially outperforms HIPM.
+    \onslide<2->{\item \textbf{A:} HIPM slightly outperforms WoW.}
+    \onslide<3->{\item \textbf{B:} WoW outperforms HIPM.}
   \end{itemize}
 \end{frame}
 
@@ -722,26 +722,30 @@
 % ── Simulation: comparison with literature slide ────────────────────────────────────
 \begin{frame}{Comparison with Existing Methods}
   \small
-  \textbf{Model:} $\widetilde{P}^i|\widetilde{\mu} = \mathcal{N}(\widetilde{\mu},1)$,\; $\widetilde{\mu}\sim\mathcal{N}_T(\mu_{0i},\sigma_{0i}^2,-10,10)$.\hfill$n=100,\;m=200$.
-  \vskip 0.4em
-  \begin{columns}[T]
+  \textbf{Model:} $\widetilde{P}^i|\widetilde{\mu} = \mathcal{N}(\widetilde{\mu},1)$,\; $\widetilde{\mu}\sim\mathcal{N}_T(\mu_{0i},\sigma_{0i}^2,-10,10)$.\hfill$n=100,\;m=200,\theta = 0.05$.
+  \vskip 0pt
+  \begin{columns}[b]
     \begin{column}{0.49\textwidth}
+      \onslide<2->{
       \centering
-      {\footnotesize\textbf{Mean shift:} $\mu_{02}=\delta,\;\delta\in[-1,1]$}\\[0.3em]
+      \parbox[t][1.4em][t]{\linewidth}{\centering\footnotesize\textbf{Mean shift:} $\sigma_{0i} = 0.5, \mu_{01} = 0, \mu_{02}=\delta$}\\[0pt]
       \includegraphics[width=\linewidth]{figures/mean_n=100_m=200_S=1000_bootstrap=false_n_samples=100.png}
+      }
     \end{column}
     \begin{column}{0.49\textwidth}
+      \onslide<3->{
       \centering
-      {\footnotesize\textbf{Variance shift:} $\sigma_{02}=0.2\tau,\;\tau\in[0,2.5]$}\\[0.3em]
+      \parbox[t][1.4em][t]{\linewidth}{\centering\footnotesize\textbf{Variance shift:} $\mu_{0i} = 0,\sigma_{01} = 0.2, \sigma_{02}=0.2\tau$}\\[0pt]
       \includegraphics[width=\linewidth]{figures/variance_n=100_m=200_S=1000_bootstrap=false_n_samples=100.png}
+      }
     \end{column}
   \end{columns}
-  \vskip 0.4em
+  \vskip 0pt
   \begin{itemize}
-    \setlength\itemsep{0.2em}
-    \item All methods control Type~I error ($\delta=0$, $\tau=1$).
-    \item \textbf{Mean shift:} Energy, WoW, HIPM outperform Fr\'{e}chet.
-    \item \textbf{Variance shift:} Fr\'{e}chet is best; HIPM and WoW outperform Energy.
+    \setlength\itemsep{0pt}
+    \item<2-> \textbf{Mean shift:} Energy, WoW, HIPM outperform Fr\'{e}chet.
+    \item<3-> \textbf{Variance shift:} Fr\'{e}chet $>$ WoW $>$ HIPM $>$ Energy.
+    \item<3-> All methods control Type~I error ($\delta=0$, $\tau=1$).
   \end{itemize}
 \end{frame}
 
@@ -750,7 +754,9 @@
   \begin{columns}[T]
     \begin{column}{0.54\textwidth}
       \small
-      \textbf{Counterexample:} $Q^1 \neq Q^2$ but \emph{same} Fr\'{e}chet mean and variance.
+      \onslide<1->{\begin{itemize}
+        \item$Q^1 \neq Q^2$ but \emph{same} Fr\'{e}chet mean and variance.
+      \end{itemize}
       \vskip 0.5em
       $\widetilde{P}|\widetilde{\mu} = \mathcal{N}(\widetilde{\mu},1)$ in both cases, with
       \begin{align*}
@@ -758,17 +764,17 @@
         Q^2&:\; \widetilde{\mu} \sim \tfrac{1}{8}\delta_{-2} + \tfrac{3}{4}\delta_{0} + \tfrac{1}{8}\delta_{2}.
       \end{align*}
       \textbf{Test family:} $(Q^1,\, M_\lambda)$,\; $M_\lambda = \lambda Q^1+(1{-}\lambda)Q^2$,\; $\lambda\in[0,1]$.\\[0.4em]
-      $\lambda=1$: Type~I error;\quad $\lambda<1$: power.
+      $\lambda=1$: Type~I error;\quad $\lambda<1$: power.}
       \vskip 0.5em
       \begin{itemize}
         \setlength\itemsep{0.3em}
-        \item Fr\'{e}chet test is \textbf{blind}: equal mean/variance $\Rightarrow$ cannot detect $Q^1\neq M_\lambda$.
-        \item HIPM, WoW, and Energy correctly detect the discrepancy.
+        \item<2-> Fr\'{e}chet test cannot detect $Q^1\neq M_\lambda$.
+        \item<2-> HIPM, WoW, and Energy correctly detect the discrepancy.
       \end{itemize}
     \end{column}
     \begin{column}{0.44\textwidth}
       \vspace{1.2em}
-      \includegraphics[width=\linewidth]{figures/counterexample_n=100_m=200_S=1000_bootstrap=false_n_samples=100.png}
+      \onslide<2->{\includegraphics[width=\linewidth]{figures/counterexample_n=100_m=200_S=1000_bootstrap=false_n_samples=100.png}}
     \end{column}
   \end{columns}
 \end{frame}
