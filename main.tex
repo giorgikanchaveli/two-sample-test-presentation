@@ -755,7 +755,7 @@
     \begin{column}{0.54\textwidth}
       \small
       \onslide<1->{\begin{itemize}
-        \item$Q^1 \neq Q^2$ but \emph{same} Fr\'{e}chet mean and variance.
+        \item$Q^1 \neq Q^2$ but \textbf{same} Fr\'{e}chet mean and variance.
       \end{itemize}
       \vskip 0.5em
       $\widetilde{P}|\widetilde{\mu} = \mathcal{N}(\widetilde{\mu},1)$ in both cases, with
@@ -782,33 +782,38 @@
 % ── Application: mortality data introduction slide ──────────────────────────────────
 \begin{frame}{Application: Human Mortality Data}
   \small
-  \textbf{Data:} Human Mortality Database, 1960--2010. Each country-year gives an \textbf{age-at-death distribution} over ages $\{0,1,\ldots,110\}$.
+  \textbf{Data:} Human Mortality Database, 1960--2010. \vskip 0.4em
+  \textbf{age-at-death distribution} over ages $\{0,1,\ldots,110\}$ per each country and year.
   \vskip 0.4em
+  \begin{itemize}
+    \item Group 1: Belarus, Bulgaria, Czechia, Estonia, Hungary, Latvia, Lithuania, Poland, Russia, Slovakia, Ukraine
+    \item Group 2: Australia, Austria, Belgium, Canada, Denmark, Finland, France, Iceland, Ireland, Italy, Japan, Luxembourg, Netherlands, New Zealand, Norway, Spain, Sweden, Switzerland, UK, USA.
+  \end{itemize}
+\end{frame}
+
+% ── Application: mortality quantile plots slide ──────────────────────────────────────
+\begin{frame}{Application: Human Mortality Data}
   \begin{columns}[T]
-    \begin{column}{0.40\textwidth}
-      \footnotesize
-      \textbf{Group 1} (Eastern Bloc):\\[0.2em]
-      Belarus, Bulgaria, Czechia, Estonia, Hungary, Latvia, Lithuania, Poland, Russia, Slovakia, Ukraine.
-      \vskip 0.6em
-      \textbf{Group 2} (Western / non-Soviet):\\[0.2em]
-      Australia, Austria, Belgium, Canada, Denmark, Finland, France, Iceland, Ireland, Italy, Japan, Luxembourg, Netherlands, New Zealand, Norway, Spain, Sweden, Switzerland, UK, USA.
+    \begin{column}{0.49\textwidth}
+      \centering{\footnotesize\textbf{Females}}\\[0.2em]
+      \includegraphics[width=\linewidth]{figures/females_allquantiles_0_110.png}
     \end{column}
-    \begin{column}{0.57\textwidth}
-      \begin{columns}[T]
-        \begin{column}{0.49\textwidth}
-          \centering{\footnotesize Males}\\[0.2em]
-          \includegraphics[width=\linewidth]{figures/males_allquantiles_0_110.png}
-        \end{column}
-        \begin{column}{0.49\textwidth}
-          \centering{\footnotesize Females}\\[0.2em]
-          \includegraphics[width=\linewidth]{figures/females_allquantiles_0_110.png}
-        \end{column}
-      \end{columns}
-      \vskip 0.3em
-      {\footnotesize Quantile plots for 1960, 1992, 2008. Differences between groups become more pronounced in recent periods.}
+    \begin{column}{0.49\textwidth}
+      \centering{\footnotesize\textbf{Males}}\\[0.2em]
+      \includegraphics[width=\linewidth]{figures/males_allquantiles_0_110.png}
     \end{column}
   \end{columns}
+  \vskip 0.2em
+  {\footnotesize\textit{Quantile plots of age-at-death distributions for years 1960, 1992, 2008.}}
+  \vskip 0.2em
+  \begin{itemize}
+    \setlength\itemsep{0.15em}
+    \small
+    \item Years capture the Cold War era, post Soviet-collapse, and a more recent period.
+    \item Differences are visually apparent in later periods.
+  \end{itemize}
 \end{frame}
+
 
 % ── Application: methods and p-values slide ─────────────────────────────────────────
 \begin{frame}{Application: Human Mortality Data}
