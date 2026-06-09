@@ -308,22 +308,6 @@
   \end{columns}
 \end{frame}
 
-% ── Summary 1 slide ─────────────────────────────────────────────────────────────
-
-\begin{frame}{Distance-based Two Sample Test}
-  \begin{itemize}
-    \setlength\itemsep{1.2em}
-    \item \textbf{Problem.} $Q^1, Q^2 \in \probprobx$;\quad
-          test $H_0 : Q^1 = Q^2$ vs $H_1 : Q^1 \neq Q^2$.
-    \pause
-    \item \textbf{Strategy.} Given hierarchical samples $\mathbf{X}_{n,m} \sim Q^1$
-          and $\mathbf{Y}_{n,m} \sim Q^2$, reject $H_0$ if
-          $d(\mathbf{X}_{n,m},\, \mathbf{Y}_{n,m})$ is large.
-    \pause
-    \item \textbf{Ingredients.} A distance $d$ on $\probprobx$; a threshold.
-  \end{itemize}
-\end{frame}
-
 
 % ── Hierarchical sample in the literature slide ─────────────────────────────────────────────────────────────
 
@@ -365,13 +349,30 @@
   \end{itemize}
 \end{frame}
 
+% ── Summary 1 slide ─────────────────────────────────────────────────────────────
+
+\begin{frame}{Distance-based Two Sample Test}
+  \begin{itemize}
+    \setlength\itemsep{1.2em}
+    \item \textbf{Problem.} $Q^1, Q^2 \in \probprobx$;\quad
+          test $H_0 : Q^1 = Q^2$ vs $H_1 : Q^1 \neq Q^2$.
+    \pause
+    \item \textbf{Strategy.} Given hierarchical samples $\mathbf{X}_{n,m} \sim Q^1$
+          and $\mathbf{Y}_{n,m} \sim Q^2$, reject $H_0$ if
+          $d(\mathbf{X}_{n,m},\, \mathbf{Y}_{n,m})$ is large.
+    \pause
+    \item \textbf{Ingredients.} A distance $d$; a threshold.
+  \end{itemize}
+\end{frame}
+
+
 % ── Hierarchical Empirical Estimator slide ─────────────────────────────────────────────────────────────
 
 \begin{frame}{Hierarchical Empirical Estimator}
   \begin{itemize}
     \setlength\itemsep{1.1em}
     \item $Q \in \probprobx$. \pause
-    \item Analogue of the empirical measure in i.i.d case:
+    \item Analogue of the empirical measure in i.i.d case:$\quad \widetilde{P}_1,\dots, \widetilde{P}_n \simiid Q$
       \[
         \frac{1}{n}\sum_{i=1}^{n} \delta_{\widetilde{P}_i}.
       \]
@@ -388,10 +389,11 @@
   \end{itemize}
 \end{frame}
 
+% ── Summary 2 slide ─────────────────────────────────────────────────────────────
 \begin{frame}{Distance based Two Sample Test}
   \begin{itemize}
     \setlength\itemsep{1.1em}
-    \item $Q^1, Q^2 \in \probprobx$ unknown;\quad test $H_0: Q^1 = Q^2$ vs $H_1: Q^1 \neq Q^2$.
+    \item $Q^1, Q^2 \in \probprobx$;\quad test $H_0: Q^1 = Q^2$ vs $H_1: Q^1 \neq Q^2$.
     \item Observe hierarchical samples
       \[
         \mathbf{X}_{n,m} \sim Q^1, \qquad \mathbf{Y}_{n,m} \sim Q^2.
@@ -404,9 +406,204 @@
     \pause
     \item \textbf{Reject $H_0$} if
       \[
-        d\!\left(\widehat{Q}^1_{n,m},\, \widehat{Q}^2_{n,m}\right) \text{is large}.
+        d\!\left(\widehat{Q}^1_{n,m},\, \widehat{Q}^2_{n,m}\right) \text{ is large}.
       \]
   \end{itemize}
+\end{frame}
+
+
+
+% ── Wasserstein over Wasserstein slide ─────────────────────────────────────────────────────────────
+\begin{frame}{Metrics on $\probprobx$: Wasserstein over Wasserstein}
+  \begin{itemize}
+    \setlength\itemsep{1em}
+    \item $(\X, d_{\X})$ Polish space with bounded diameter.
+    \item \textbf{Step 1:} Using $d_{\X}$ on $\X$, define Wasserstein distance $\mathcal{W}$ on $\probx$: for $P^1, P^2 \in \probx$,
+      \[
+        \mathcal{W}(P^1,P^2) = \inf_{(X^1,X^2)\in \Gamma(P^1,P^2)} \mathbb{E}\!\left[d_{\X}(X^1,X^2)\right],
+      \]
+      where $\Gamma(P^1,P^2)$ are couplings of $P^1$ and $P^2$ on $\X\times\X$.
+    \pause
+    \item \textbf{Step 2:} Using $\mathcal{W}$ on $\probx$, for $Q^1, Q^2 \in \probprobx$,
+      \[
+        \WW(Q^1,Q^2) = \inf_{(\widetilde{P}^1,\widetilde{P}^2)\sim \Gamma(Q^1,Q^2)} \mathbb{E}\!\left[\mathcal{W}(\widetilde{P}^1,\widetilde{P}^2)\right].
+      \]
+  \end{itemize}
+  \vskip 0.8em
+  \[
+    \WW\ \text{is called} \textcolor{brown}{\textbf{ Wasserstein over Wasserstein (WoW).}}
+  \]
+\end{frame}
+
+
+% ── Hierarchical Integral Probability metric slide ─────────────────────────────────────────────────────────────
+\begin{frame}{Metrics on $\probprobx$: Hierarchical IPM}
+  \begin{itemize}
+    \setlength\itemsep{0.35em}
+    \item $Q^1, Q^2 \in \probprobx$; \textbf{idea}: compare their pushforward measures on $\R$.
+    \pause
+    \item For $f:\X\to\R$, let $\hat{f}:\probx\to\R$,\; $\hat{f}(P) = \int_\X f\,dP$. 
+  \end{itemize}
+  \pause
+  \begin{center}
+  \begin{tikzpicture}
+    % ── Left panel: draws from Q^1, Q^2 in P(X) ─────────────────────────
+    \begin{axis}[
+      name=leftpanel,
+      width=5.8cm, height=2.8cm,
+      axis lines=left,
+      xtick=\empty, ytick=\empty,
+      ymin=-0.05, ymax=0.82,
+      xmin=-3.5, xmax=8.5,
+      clip=false,
+      title={\scriptsize laws of RPMs},
+    ]
+      \addplot[thick, blue!80!black, domain=-3.5:3.2, samples=60]
+        {1/(0.8*sqrt(2*pi))*exp(-(x+0.8)^2/(2*0.64))};
+      \addplot[thick, blue!50!black, domain=-3.5:3.2, samples=60]
+        {1/(1.0*sqrt(2*pi))*exp(-(x-0.7)^2/(2*1.0))};
+      \addplot[thick, cyan!70!blue, domain=-3.5:3.2, samples=60]
+        {1/(0.7*sqrt(2*pi))*exp(-x^2/(2*0.49))};
+      \node[blue!80!black, font=\bfseries\scriptsize] at (axis cs:-1.5, 0.78) {$Q^1$};
+      \addplot[thick, orange!80!red, domain=2.0:8.5, samples=60]
+        {1/(0.8*sqrt(2*pi))*exp(-(x-4.2)^2/(2*0.64))};
+      \addplot[thick, orange!50!red, domain=2.0:8.5, samples=60]
+        {1/(1.0*sqrt(2*pi))*exp(-(x-5.7)^2/(2*1.0))};
+      \addplot[thick, orange!70!black, domain=2.0:8.5, samples=60]
+        {1/(0.7*sqrt(2*pi))*exp(-(x-5.0)^2/(2*0.49))};
+      \node[orange!80!red, font=\bfseries\scriptsize] at (axis cs:7.0, 0.78) {$Q^2$};
+    \end{axis}
+    % ── Right panel: law of random integrals Q o f-hat^{-1} ─────────────
+    \begin{axis}[
+      name=rightpanel,
+      at=(leftpanel.east), anchor=west, xshift=2.0cm,
+      width=4.0cm, height=2.8cm,
+      axis lines=left,
+      xtick=\empty, ytick=\empty,
+      ymin=-0.05, ymax=1.15,
+      xmin=-2.0, xmax=5.0,
+      clip=false,
+      title={\scriptsize law of random integrals},
+    ]
+      \addplot[thick, blue!80!black, domain=-2.0:2.0, samples=80]
+        {1/(0.5*sqrt(2*pi))*exp(-(x-0.2)^2/(2*0.25))};
+      \node[blue!80!black, font=\scriptsize] at (axis cs:-0.5, 1.05) {$Q^1\!\circ\hat{f}^{-1}$};
+      \addplot[thick, orange!80!red, domain=1.5:5.0, samples=80]
+        {1/(0.5*sqrt(2*pi))*exp(-(x-3.2)^2/(2*0.25))};
+      \node[orange!80!red, font=\scriptsize] at (axis cs:4.0, 1.05) {$Q^2\!\circ\hat{f}^{-1}$};
+    \end{axis}
+    % ── Arrow ────────────────────────────────────────────────────────────
+    \draw[->, thick, gray!70] (leftpanel.east) -- (rightpanel.west)
+      node[midway, above, font=\scriptsize] {$\hat{f}$};
+  \end{tikzpicture}
+  \end{center}
+  \pause
+  \begin{itemize}
+    \setlength\itemsep{0.35em}
+    \item \textcolor{brown}{\textbf{Hierarchical Integral Probability Metric}} \parencite{catalano2024hierarchical}:
+      \[
+        d_{\F}(Q^1,Q^2) = \sup_{f\in\F}\,\W\!\bigl(Q^1\!\circ\hat{f}^{-1},\, Q^2\!\circ\hat{f}^{-1}\bigr).
+      \]
+    \item $\F = \lipX$:\quad $d_\F = \dlip$.
+  \end{itemize}
+\end{frame}
+
+% ── Properties of WoW and HIPM slide ─────────────────────────────────────────────────────────────
+\begin{frame}{Properties of $\WW$ and $\dlip$}
+  \begin{itemize}
+    \setlength\itemsep{0.4em}
+    \item $\WW$ and $\dlip$ are \textbf{Integral Probability Metrics}: $\displaystyle \mathcal{I}_{\mathcal{G}}(\mu, \nu) = \sup_{g\in\mathcal{G}}\bigl|\mu(g)-\nu(g)\bigr|$.
+    \pause
+    \begin{align*}
+      \WW(Q^1,Q^2) &= \sup_{h\in\mathrm{Lip}_1(\probx,\R,\W)}\!\left|\int_{\probx}h\,dQ^1 - \int_{\probx}h\,dQ^2\right|, \\[0.15cm]
+      \dlip(Q^1,Q^2) &= \sup_{h\in\D}\left|\int_{\probx}h\,dQ^1 - \int_{\probx}h\,dQ^2\right|,
+    \end{align*}
+    where $\D = \bigl\{h:\probx\to\R \;:\; h(P) = g(P(f)),\; g\in\lipR,\; f\in\lipX\bigr\}$.
+    \pause
+    \item $\WW$ metrizes weak convergence on $\probprobx$.
+    \item $\dlip$ metrizes weak convergence on $\probprobx$ when $\X$ is compact.
+    \pause
+    \item $\E\bigl[\WW(\widehat{Q}_{n,m}, Q)\bigr] \to 0$ \textbf{slower than} any polynomial rate.
+    \item $\E\bigl[\dlip(\widehat{Q}_{n,m}, Q)\bigr] \to 0$ at \textbf{polynomial rate}.
+  \end{itemize}
+  \vskip 0.3em
+  \hfill\parencite{catalano2024hierarchical}
+\end{frame}
+
+
+
+% ── Summary 3 slide ─────────────────────────────────────────────────────────────
+\begin{frame}{Distance based Two Sample Test}
+  \begin{itemize}
+    \setlength\itemsep{1.1em}
+    \item $Q^1, Q^2 \in \probprobx$;\quad test $H_0: Q^1 = Q^2$ vs $H_1: Q^1 \neq Q^2$.
+    \item Observe hierarchical samples
+      \[
+        \mathbf{X}_{n,m} \sim Q^1, \qquad \mathbf{Y}_{n,m} \sim Q^2.
+      \]
+    \item Build hierarchical empirical estimators:
+      \[
+        \widehat{Q}^1_{n,m} = \frac{1}{n}\sum_{i=1}^{n}\delta_{\widehat{P}^1_{i,m}}, \qquad
+        \widehat{Q}^2_{n,m} = \frac{1}{n}\sum_{i=1}^{n}\delta_{\widehat{P}^2_{i,m}}.
+      \]
+    \item \textbf{Reject $H_0$} if
+      \[
+        d\!\left(\widehat{Q}^1_{n,m},\, \widehat{Q}^2_{n,m}\right) \textcolor{red}{\text{ is large}}.
+      \]
+  \end{itemize}
+\end{frame}
+
+
+
+
+
+
+% ── Rademacher complexity threshold slide ─────────────────────────────────────
+\begin{frame}{Theoretical Threshold via Rademacher Complexity}
+  \begin{itemize}
+    \item \textbf{Idea:} Threshold $r(n,m,\theta)$ from a concentration inequality.
+  \end{itemize}
+  \pause
+  \vskip 0.6em
+  \begin{theorem}
+    Let $\mathcal{G}$, $\mathcal{H}$ be uniformly bounded function classes generating IPMs on $\probx$ and $\probprobx$ respectively, with $\mathcal{H} \subseteq \mathrm{Lip}_1(\probx,\R,\mathcal{I}_{\mathcal{G}})$. Then for all $\theta\in(0,1)$, $n,m\geq 1$,
+    \[
+      \mathbb{P}\!\left(\bigl|\mathcal{I}_{\mathcal{H}}(\widehat{Q}^1_{n,m},\widehat{Q}^2_{n,m}) - \mathcal{I}_{\mathcal{H}}(Q^1,Q^2)\bigr| \geq r(n,m,\theta)\right) \leq \theta,
+    \]
+    where
+    \[
+      r(n,m,\theta) = O\!\left(\mathcal{R}_n(\mathcal{H}) + \mathcal{R}_m(\mathcal{G}) + \frac{1}{\sqrt{n}}\right).
+    \]
+  \end{theorem}
+\end{frame}
+
+% ── Explicit rates for rademacher complexity thresholds slide ──────────────────────────────────────────────────────
+\begin{frame}{Theoretical Threshold via Rademacher Complexity}
+  \small $\X \subset \R^d$ bounded.\vskip 0.4em
+  \begin{columns}[T]
+    \begin{column}{0.50\textwidth}
+      \textcolor{brown}{\textbf{WoW:}}
+      \footnotesize
+      \[
+        \begin{cases}
+          \mathcal{O}\!\left(\dfrac{\log\log n}{\log n} + \dfrac{1}{\sqrt{n}} + \dfrac{1}{\sqrt{m}}\right), & d=1 \\[0.7em]
+          \mathcal{O}\!\left(\dfrac{\log\log n}{\log n} + \dfrac{\log n}{\sqrt{n}} + \dfrac{\log m}{\sqrt{m}}\right), & d=2 \\[0.7em]
+          \mathcal{O}\!\left(\dfrac{\log\log n}{\log n} + \dfrac{1}{n^{1/d}} + \dfrac{1}{m^{1/d}}\right), & d>2.
+        \end{cases}
+      \]
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textcolor{brown}{\textbf{HIPM:}}
+      \footnotesize
+      \[
+        \begin{cases}
+          \mathcal{O}\!\left(\dfrac{1}{\sqrt{n}} + \dfrac{1}{\sqrt{m}}\right), & d=1 \\[0.7em]
+          \mathcal{O}\!\left(\dfrac{\log n}{\sqrt{n}} + \dfrac{\log m}{\sqrt{m}}\right), & d=2 \\[0.7em]
+          \mathcal{O}\!\left(\dfrac{1}{n^{1/d}} + \dfrac{1}{m^{1/d}}\right), & d>2.
+        \end{cases}
+      \]
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}{References}
