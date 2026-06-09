@@ -815,32 +815,38 @@
 \end{frame}
 
 
-% ── Application: methods and p-values slide ─────────────────────────────────────────
+% ── Application: methods slide ───────────────────────────────────────────────────────
 \begin{frame}{Application: Human Mortality Data}
   \small
-  \textbf{Methods compared} ($\theta=0.05$, $n_{\mathrm{perm}}=100$):
+  \textbf{Methods}:
   \begin{itemize}
-    \setlength\itemsep{0.15em}
-    \item \textbf{HIPM / WoW}: permutation test on hierarchical empirical estimators.
-    \item \textbf{Averaging}: $\overline{P}^k = \frac{1}{n_k}\sum_i\widehat{P}^k_i$;\; $\mathcal{W}_1(\overline{P}^1,\overline{P}^2)$;\; permute at measure level.
+    \setlength\itemsep{0.4em}
+    \item \textbf{HIPM / WoW}
+    \item \textbf{Averaging}: $\overline{P}^k = \frac{1}{n_k}\sum_i\widehat{P}^k_i$;\; $\mathcal{W}_1(\overline{P}^1,\overline{P}^2)$.
     \item \textbf{Pooling}: aggregate all deaths per group;\; permute at observation level.
   \end{itemize}
-  \vskip 0.3em
+  \vskip2em
+  $\theta=0.05$, $n_{\mathrm{perm}}=100$
+\end{frame}
+
+% ── Application: p-values slide ──────────────────────────────────────────────────────
+\begin{frame}{Application: Human Mortality Data}
+  \small
   \begin{columns}[T]
     \begin{column}{0.49\textwidth}
-      \centering{\footnotesize Males}\\[0.2em]
+      \centering{\footnotesize\textbf{Males}}\\[0.2em]
       \includegraphics[width=\linewidth]{figures/pvalues_males.png}
     \end{column}
     \begin{column}{0.49\textwidth}
-      \centering{\footnotesize Females}\\[0.2em]
+      \centering{\footnotesize\textbf{Females}}\\[0.2em]
       \includegraphics[width=\linewidth]{figures/pvalues_females.png}
     \end{column}
   \end{columns}
   \vskip 0.3em
   \begin{itemize}
     \setlength\itemsep{0.15em}
-    \item HIPM, WoW, and Averaging show similar trends: significant differences after 1970s.
-    \item \textbf{Pooling} fails to control Type~I error in hierarchical settings — p-values systematically deflated.
+    \item<2-> HIPM, WoW, and Averaging show similar trends: significant differences after 1970s.
+    \item<3-> \textbf{Pooling} fails to control Type~I error in hierarchical sampling setting.
   \end{itemize}
 \end{frame}
 
