@@ -606,6 +606,78 @@
   \end{columns}
 \end{frame}
 
+% ── Permutation threshold slide ───────────────────────────────────────────────
+\begin{frame}{Permutation-Based Threshold}
+  \begin{columns}[T]
+    % ── Left: bullet items ──────────────────────────────────────────────────
+    \begin{column}{0.52\textwidth}
+      \begin{itemize}
+        \setlength\itemsep{1.4em}
+        \onslide<2->{\item Observe $d\!\left(\widehat{Q}^1_{n,m},\, \widehat{Q}^2_{n,m}\right)$. \textbf{Idea:} Estimate its $(1-\theta)$-quantile under $H_0$.}
+        \onslide<3->{\item $\widehat{P}^1_{1,m}, \ldots, \widehat{P}^1_{n,m},\; \widehat{P}^2_{1,m}, \ldots, \widehat{P}^2_{n,m} \simiid$ under $H_0$}
+        \onslide<4->{\item For $s=1,\ldots,S$: compute $d\!\left(\widehat{Q}^{1,(s)}_{n,m},\, \widehat{Q}^{2,(s)}_{n,m}\right)$}
+        \onslide<5->{\item \textbf{Threshold:} $(1-\theta)$-quantile of
+        \[
+        d\!\left(\widehat{Q}^{1,(1)}_{n,m},\, \widehat{Q}^{2,(1)}_{n,m}\right),\dots,
+        d\!\left(\widehat{Q}^{1,(S)}_{n,m},\, \widehat{Q}^{2,(S)}_{n,m}\right)
+        \]
+        }
+      \end{itemize}
+    \end{column}
+    % ── Right: permutation figure (simple i.i.d. case) ───────────────────────
+    \begin{column}{0.45\textwidth}
+      \onslide<1->{
+      \vspace{0.5em}
+      \begin{tikzpicture}
+        %% TOP: samples interleaved (under H_0 same law)
+        \draw[->] (-2.8,0) -- (2.9,0);
+        \foreach \x in {-2.3,-0.8,0.5,1.4,2.3}
+          \fill[blue!80!black] (\x,0) circle (2.5pt);
+        \foreach \x in {-1.7,-0.2,0.9,1.9,2.6}
+          \fill[orange!80!red] (\x,0.10) -- (\x-0.10,-0.09) -- (\x+0.10,-0.09) -- cycle;
+        \node[blue!80!black, font=\scriptsize\bfseries] at (-1.5,0.42) {Group 1};
+        \node[orange!80!red, font=\scriptsize\bfseries] at ( 1.5,0.42) {Group 2};
+        %% Arrow
+        \draw[->, thick, gray!65] (0,-0.28) -- (0,-0.80)
+          node[midway, right=0.05cm, font=\scriptsize\itshape, gray!80] {permute};
+        %% BOTTOM: same positions, relabeled groups
+        \begin{scope}[yshift=-1.22cm]
+          \draw[->] (-2.8,0) -- (2.9,0);
+          \foreach \x in {-2.3,-1.7,0.9,1.4,2.6}
+            \fill[blue!80!black] (\x,0) circle (2.5pt);
+          \foreach \x in {-0.8,-0.2,0.5,1.9,2.3}
+            \fill[orange!80!red] (\x,0.10) -- (\x-0.10,-0.09) -- (\x+0.10,-0.09) -- cycle;
+        \end{scope}
+      \end{tikzpicture}
+      }
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── Permutation test: statistic and validity ──────────────────────────────────
+\begin{frame}{Practical Threshold via Permutation}
+  \begin{itemize}
+    \setlength\itemsep{0.9em}
+    \onslide<1->{\item \textbf{Test statistic:}
+      $T_{n,m} = \sqrt{\dfrac{n}{2}}\,\dlip\!\left(\widehat{Q}^1_{n,m},\, \widehat{Q}^2_{n,m}\right)$}
+    \onslide<1->{\item \textbf{Permutation threshold:} for significance level $\theta\in(0,1)$,
+      \[
+        r(n,m,\theta) = \inf\!\left\{t\in\R : \mathbb{P}\!\left(\widetilde{T}_{n,m} > t \;\middle|\; \mathbf{X}_{n,m},\mathbf{Y}_{n,m}\right) \leq \theta\right\}.
+      \]}
+    \onslide<2->{\item \textbf{Testing scheme:} Reject $H_0$ if $T_{n,m} > r(n,m,\theta)$.}
+  \end{itemize}
+  \onslide<3->{
+  \begin{theorem}
+    Let $\X = [a,b]$ and $Q^1, Q^2 \in \probprobx$. Then for all $\theta \in (0,1)$
+    \begin{itemize}
+      \setlength\itemsep{0.4em}
+      \item if $Q^1 = Q^2$:\; $\displaystyle\lim_{n,m\to\infty}\mathbb{P}\!\left(T_{n,m} > r(n,m,\theta)\right) \leq \theta$.
+      \item if $Q^1 \neq Q^2$:\; $\displaystyle\lim_{n,m\to\infty}\mathbb{P}\!\left(T_{n,m} > r(n,m,\theta)\right) = 1$.
+    \end{itemize}
+  \end{theorem}
+  }
+\end{frame}
+
 \begin{frame}{References}
   \printbibliography[heading=none]
 \end{frame}
