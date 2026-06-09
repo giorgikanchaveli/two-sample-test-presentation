@@ -17,7 +17,8 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \usepackage{mathrsfs}
-\usepackage[style=authoryear, backend=bibtex, maxcitenames=2]{biblatex}
+\usepackage[style=authoryear, backend=bibtex, maxcitenames=2,
+  url=false, doi=false, isbn=false, eprint=false]{biblatex}
 \addbibresource{references.bib}
 
 % ── Notation ──────────────────────────────────────────────────────────────────
@@ -850,15 +851,15 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{References}
+\begin{frame}[allowframebreaks]{References}
   \printbibliography[heading=none]
 \end{frame}
 
-% ── Appendix ──────────────────────────────────────────────────────────────────
-\appendix
-
-\begin{frame}{Backup Slide}
-  % content
+% ── Thank you slide ───────────────────────────────────────────────────────────
+\begin{frame}[c]
+  \begin{center}
+    {\Large\bfseries Thank you for your attention!}\\[1.5em]
+  \end{center}
 \end{frame}
 
 \end{document}
